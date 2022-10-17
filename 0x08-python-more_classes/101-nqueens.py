@@ -1,49 +1,50 @@
-import sys
-
-solutions = []
-
-def place(positions,col):
-	if positions is None:
-		return True
-	current_row = len(positions)
-	if col in  positions:
-		return False
-	#diagonal
-	d = 1
-	for prev_row in range(current_row-1,-1,-1):
-		if positions[prev_row] == col - d :
-			return False
-		d += 1
-	#off-diagonal
-	d = 1
-	for prev_row in range(current_row-1,-1,-1):
-		if positions[prev_row] == col + d:
-			return False
-		d += 1
-	
-	return True
-
-def solve_nqueens(positions,row,max_queens):
-	global solutions
-
-	if(row == max_queens):
-		solutions.append(positions)
-		return True
-	
-	for col in range(0,max_queens):
-		if place(positions,col) :
-			Y = positions[:]
-			Y.append(col)
-			solve_nqueens(Y,row+1,max_queens)
-		else:
-			continue
-
-	return False
+#!/usr/bin/python3
+'''Module for N Queens problem.'''
 
 
+def isSafe(board, row, col):
+    '''Checks if position is safe from attack.
+    Args:
+        board: The board state.
+        row: The row to check.
+        col: The colum to check.
+    '''
+    for c in range(col):
+        if board[c] is row or abs(board[c] - row) is abs(c - col):
+            return False
+    return True
 
-if __name__ == '__main__':
-	X = []
-	queens = int(sys.argv[1])
-	solve_nqueens(X,0,queens);
-	print solutions
+
+def checkBoard(board, col):
+    '''Checks the board state column by column using backtracking.
+    Args:
+        board: The board state.
+        col: The current colum to check.
+    '''
+    n = len(board)
+    if col is n:
+        print(str([[c, board[c]] for c in range(n)]))
+        return
+
+    for row in range(n):
+        if isSafe(board, row, col):
+            board[col] = row
+            checkBoard(board, col + 1)
+
+if __name__ == "__main__":
+    import sys
+
+    if len(sys.argv) != 2:
+        print("Usage: nqueens N")
+        sys.exit(1)
+    n = 0
+    try:
+        n = int(sys.argv[1])
+    except:
+        print("N must be a number")
+        sys.exit(1)
+    if n < 4:
+        print("N must be at least 4")
+        sys.exit(1)
+    board = [0 for col in range(n)]
+    checkBoard(board, 0)
