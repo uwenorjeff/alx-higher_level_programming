@@ -1,5 +1,4 @@
 #!/usr/bin/python3
-class LockedClass:
-    """A locked class that only lets the user dynamically create the instance
-    attribute 'first_name'"""
-    __slots__ = ['first_name']
+def magic_string():
+    setattr(magic_string, "times", getattr(magic_string, "times", -1) + 1)
+    return "Best" + ", School" * getattr(magic_string, "times", 0)
