@@ -1,12 +1,11 @@
 #!/usr/bin/python3
 """
-Contains the "load_from_json_file" function
+returns the dictionary description with simple data structure
 """
 
-import json
 
-
-def load_from_json_file(filename):
-    """creates an Object from a "JSON file" """
-    with open(filename, 'r', encoding='utf-8') as f:
-        return json.load(f)
+def class_to_json(obj):
+    """
+    JSON serialization of an object
+    """
+    return (obj.__dict__)
