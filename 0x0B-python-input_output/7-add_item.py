@@ -1,16 +1,20 @@
 #!/usr/bin/python3
 """
-adds all arguments to a Python list
+7-add_item module
 """
 import sys
+import json
+import os.path
+save_to_json_file = __import__('5-save_to_json_file').save_to_json_file
+load_from_json_file = __import__('6-load_from_json_file').load_from_json_file
 
+file = "add_item.json"
+json_list = []
 
-save = __import__('5-save_to_json_file').save_to_json_file
-load = __import__('6-load_from_json_file').load_from_json_file
+if os.path.exists(file):
+    json_list = load_from_json_file(file)
 
-open("add_item.json", "a")
-try:
-    i = load("add_item.json")
-except ValueError:
-    i = []
-save(i + sys.argv[1:], "add_item.json")
+for i in range(1, len(sys.argv)):
+    json_list.append(sys.argv[i])
+
+save_to_json_file(json_list, file)
