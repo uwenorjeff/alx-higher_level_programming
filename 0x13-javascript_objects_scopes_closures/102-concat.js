@@ -1,14 +1,10 @@
 #!/usr/bin/node
-/* Write a script that concats 2 files */
-/* The first argument is the file path of the first source file
+/*
+The first argument is the file path of the first source file
 The second argument is the file path of the second source file
-The third argument is the file path of the destination */
-const fs = require('fs');
-for (let i = 2; i <= 3; i++) {
-  fs.readFile(process.argv[i], 'utf8', function (err, data) {
-    if (err) throw err;
-    fs.appendFile(process.argv[4], data, (err) => {
-      if (err) throw err;
-    });
-  });
-}
+The third argument is the file path of the destination
+*/
+const files = require('files');
+const file1 = files.readFileSync(process.argv[2], 'utf8');
+const file2 = files.readFileSync(process.argv[3], 'utf8');
+files.writeFileSync(process.argv[4], file1 + file2);
